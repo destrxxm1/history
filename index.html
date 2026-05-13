@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История Царскосельской Церкви Воскресения Христова</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ochre: '#C68A3B',
+                        'ochre-dark': '#A36E27',
+                        'war-red': '#cc0000',
+                        'war-bg': '#fffcfc'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        body: ['"Lora"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffffff 0%, #e8f1f8 100%);
+            background-attachment: fixed;
+            color: #2c3e50;
+            font-family: 'Lora', serif;
+            scroll-behavior: smooth;
+        }
+
+        .serif-heading { font-family: 'Playfair Display', serif; }
+
+        nav {
+            backdrop-filter: blur(12px);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(198, 138, 59, 0.2);
+        }
+
+        .nav-link { transition: all 0.3s ease; position: relative; font-size: 0.85rem; font-weight: bold; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: #C68A3B; transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active-nav::after { width: 100%; }
+
+        .timeline-wrapper { position: relative; max-width: 1200px; margin: 0 auto; }
+
+        .timeline-line {
+            position: absolute; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 1px; 
+            background: #C68A3B; 
+            top: 0; 
+            bottom: 0; 
+            opacity: 0.2; 
+            z-index: 1;
+            /* Этот параметр «отрезает» лишний хвост линии снизу */
+            margin-bottom: 1295px; 
+        }
+
+        .timeline-item {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            width: 100%; margin-bottom: 80px; position: relative; z-index: 10;
+        }
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+        
+        .timeline-content {
+            width: 46%; padding: 30px; background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(198, 138, 59, 0.1); border-radius: 2px;
+            transition: all 0.4s ease; cursor: pointer;
+        }
+        .timeline-content:hover { background: white; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+
+        .timeline-dot {
+            width: 12px; height: 12px; background: #C68A3B; border-radius: 50%;
+            margin-top: 30px; z-index: 20; border: 2px solid white; outline: 1px solid #C68A3B;
+        }
+
+        .img-placeholder {
+            width: 100%; background: #f0f3f5; display: flex; align-items: center; justify-content: center;
+            border-radius: 2px; overflow: hidden; border: 1px solid #e1e8ed; margin: 20px 0;
+            color: #7f8c8d; font-style: italic; font-size: 0.85rem; text-align: center; padding: 30px;
+        }
+
+        #modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92); z-index: 1000; backdrop-filter: blur(10px);
+            overflow-y: auto; padding: 20px;
+        }
+        .modal-card { background: #ffffff; max-width: 1000px; margin: 20px auto; border-radius: 0; }
+        .modal-header { background: #faf8f5; padding: 40px 60px 20px; border-bottom: 1px solid #eee; }
+        .modal-content-inner { padding: 40px 60px 60px; line-height: 1.8; font-size: 1.15rem; }
+        .modal-content-inner p { margin-bottom: 1rem; }
+        .modal-content-inner h3 { font-family: 'Playfair Display', serif; font-weight: bold; font-size: 1.5rem; margin: 1.5rem 0 1rem; color: #A36E27; }
+        .modal-content-inner ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .modal-content-inner li { margin-bottom: 0.5rem; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 50px; color: #C68A3B; cursor: pointer; line-height: 1; }
+
+        .quiz-card { 
+            background: white; 
+            border-radius: 8px; 
+            padding: 3rem; 
+            border: 1px solid #eee;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
+        .option-btn { 
+            width: 100%; 
+            text-align: left; 
+            padding: 1.25rem; 
+            margin-bottom: 0.75rem; 
+            border: 1px solid #e5e7eb; 
+            border-radius: 8px;
+            background: #fff;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+        .option-btn:hover { 
+            border-color: #C68A3B; 
+            background: #faf8f5;
+            transform: translateX(5px);
+        }
+        .option-btn.correct { background: #ecfdf5; border-color: #10b981; color: #065f46; font-weight: bold; }
+        .option-btn.incorrect { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
+
+        @media (max-width: 768px) {
+            .timeline-line { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) { flex-direction: row; }
+            .timeline-content { width: 88%; margin-left: 45px; text-align: left !important; }
+            .timeline-dot { position: absolute; left: 14px; }
+            .quiz-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-center items-center h-16 space-x-2 overflow-x-auto no-scrollbar py-2">
+                <a href="#hero" class="nav-link serif-heading text-ochre whitespace-nowrap uppercase">Начало</a>
+                <a href="#part1" class="nav-link serif-heading text-ochre whitespace-nowrap uppercase">1745–1820</a>
+                <a href="#part3" class="nav-link serif-heading text-ochre whitespace-nowrap uppercase">1820–1917</a>
+                <a href="#part6" class="nav-link serif-heading text-war-red font-bold whitespace-nowrap uppercase tracking-widest">1941–1944</a>
+                <a href="#part8" class="nav-link serif-heading text-ochre whitespace-nowrap uppercase">Реставрация</a>
+                <a href="#quiz" class="nav-link serif-heading text-ochre whitespace-nowrap uppercase">Квиз</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header id="hero" class="pt-32 pb-24 px-6 max-w-5xl mx-auto text-center border-b border-ochre/10">
+        <h1 class="serif-heading text-4xl md:text-7xl text-ochre font-bold mb-14 leading-tight">История Царскосельской Церкви Воскресения Христова</h1>
+        <div class="grid md:grid-cols-2 gap-12 text-left bg-white/50 backdrop-blur-sm p-10 shadow-sm border border-ochre/5">
+            <div>
+                <h2 class="serif-heading text-2xl text-ochre mb-5 font-bold uppercase tracking-tight">Миссия проекта</h2>
+                <p class="text-lg leading-relaxed">Через историю одного архитектурного шедевра донести масштаб подвига ленинградцев, возродивших свой город. Мы стремимся показать, что сохранение культурного наследия — это наш общий долг.</p>
+            </div>
+            <div>
+                <h2 class="serif-heading text-2xl text-ochre mb-5 font-bold uppercase tracking-tight">Видение проекта</h2>
+                <p class="text-lg leading-relaxed">Живой цифровой памятник, воплощающий идею: величие России определяется не только подвигами на полях сражений, но и героическим трудом восстановления из руин.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="timeline-wrapper pb-32 pt-20">
+        <div class="timeline-line"></div>
+
+        <!-- 1745 -->
+        <div id="part1" class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e1')">
+                <span class="text-ochre font-bold text-2xl serif-heading">8 августа 1745</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Закладка церкви</h3>
+                <p class="text-sm text-gray-600 mb-4">Официальная церемония в присутствии Елизаветы Петровны. Медная доска задокументировала событие.</p>
+                <img src="12.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1746 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e2')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1746</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Проект Саввы Чевакинского</h3>
+                <p class="text-sm text-gray-600 mb-4">Первоначальный проект архитектора до передачи работ Растрелли.</p>
+                <img src="3456.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                <p class="text-sm text-gray-600 mb-4">На изображении: «Проект иконостаса для дворцовой церкви в Царском Селе. Чевакинский, Савва»</p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1747-1756 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e3')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1747 – 1756</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Строительство Растрелли</h3>
+                <p class="text-sm text-gray-600 mb-4">Период возведения в стиле елизаветинского барокко лучшими мастерами своего времени.</p>
+                <img src="13.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1756 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e4')">
+                <span class="text-ochre font-bold text-2xl serif-heading">30 июля 1756</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Освящение храма</h3>
+                <p class="text-sm text-gray-600 mb-4">Торжественное освящение архиепископом Сильвестром.</p>
+                <img src="14.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                <p class="text-sm text-gray-600 mb-4">На изображении: Архиепископ Сильвестр (в миру Симеон Петрович Кулябка) — епископ Русской православной церкви, архиепископ Санкт-Петербургский и Шлиссельбургский</p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1756-1820 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e_decor')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1756 – 1820</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Архитектура и убранство</h3>
+                <p class="text-sm text-gray-600 mb-4">Период расцвета домовой церкви. Описание интерьера в цвете берлинской лазури.</p>
+                 <img src="4567.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1820 -->
+        <div id="part3" class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e5')">
+                <span class="text-ochre font-bold text-2xl serif-heading">12 мая 1820</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Первый пожар</h3>
+                <p class="text-sm text-gray-600 mb-4">Масштабное разрушение интерьеров, обугливание резьбы и позолоты.</p>
+                  <img src="15.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1820-1822 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e6')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1820 – 1822</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Реставрация Стасова</h3>
+                <p class="text-sm text-gray-600 mb-4">Восстановление с применением позолоченного папье-маше.</p>
+                 <img src="18.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                 <p class="text-sm text-gray-600 mb-4">На изображении:Василий Петрович Стасов — российский архитектор, мастер позднего классицизма и ампира.</p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1822-1863 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e_stable1')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1822 – 1863</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Период стабильности</h3>
+                <p class="text-sm text-gray-600 mb-4">41 год регулярных богослужений и центра религиозной жизни при Николае I.</p>
+                <img src="16.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                <p class="text-sm text-gray-600 mb-4">На изображении:Гравюра 1859 года</p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1863 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e7')">
+                <span class="text-ochre font-bold text-2xl serif-heading">16 июня 1863</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Второй пожар</h3>
+                <p class="text-sm text-gray-600 mb-4">Новое возгорание и чудо иконы Знамения.</p>
+                <img src="22.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                <p class="text-sm text-gray-600 mb-4">На изображении: Чудотворная икона Божией Матери "Знамение" </p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1863-1864 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e8')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1863 – 1864</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Реставрация Видова</h3>
+                <p class="text-sm text-gray-600 mb-4">Восстановление по оригинальным технологиям XVIII века.</p>
+                <img src="23.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                <p class="text-sm text-gray-600 mb-4">На изображении:Эдуард Гау. Церковь в Большом Царскосельском дворце. Акварель. 1860-е  </p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1864-1917 -->
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e_stable2')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1864 – 1917</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Период благополучия</h3>
+                <p class="text-sm text-gray-600 mb-4">77 лет спокойного существования и паломничества.</p>
+                <img src="1870.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                <p class="text-sm text-gray-600 mb-4">На изображении: Вид на церковь, 1870 год </p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- 1917-1941 -->
+        <div id="part5" class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e9')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1917 – 1941</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Музейный статус</h3>
+                <p class="text-sm text-gray-600 mb-4">Бережная консервация и превращение в памятник архитектуры.</p>
+                <img src="1917.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- SECTION 1941-1944 -->
+        <section id="part6" class="relative z-40 my-32 py-32 bg-white border-y-2 border-red-200 overflow-hidden shadow-2xl">
+            <div class="max-w-6xl mx-auto px-6 relative">
+                <div class="text-center mb-20 relative" onclick="showEvent('e_war')">
+                    <span class="text-red-600 font-bold text-7xl md:text-9xl serif-heading block opacity-10 leading-none">1941 – 1944</span>
+                    <h2 class="text-4xl md:text-6xl serif-heading text-red-950 font-bold uppercase tracking-tighter absolute inset-x-0 bottom-0 flex items-center justify-center transform translate-y-1/2 cursor-pointer">Трагедия и Великие Разрушения</h2>
+                </div>
+                <div class="w-40 h-1.5 bg-red-600 mx-auto mt-16 mb-20"></div>
+                
+                <div class="grid lg:grid-cols-2 gap-16 items-start mb-12">
+                    <div class="space-y-12 text-xl leading-relaxed text-gray-900">
+                        <div class="p-8 border-l-8 border-red-700 bg-red-50/50 h-full">
+                            <p class="font-bold text-red-900 italic text-2xl mb-4 text-center sm:text-left">Оккупация и варварство</p>
+                            <p>17 сентября 1941 года город Пушкин захвачен немецко-фашистскими войсками. Церковь превращена в <b>гараж для военной техники</b> и ремонтную мастерскую. Купола изрешечены снарядами.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-12 text-xl leading-relaxed text-gray-900">
+                        <div class="p-8 border-l-8 border-red-700 bg-red-50/50 h-full">
+                            <p class="font-bold text-red-900 italic text-2xl mb-4 text-center sm:text-left">Похищенное наследие</p>
+                            <div class="text-base space-y-4">
+                                <p><b>Живописное убранство:</b> Из 114 икон XVIII века сохранилось только три — «Архангел Гавриил» и «Архангел Михаил» работы Мины Колокольникова на дьяконских дверях иконостаса, а также ещё один образ. Остальные 97 икон были похищены оккупантами</p>
+                                <p><b>Плафоны:</b> В 1942 году в церковный флигель попала бомба, которая полностью уничтожила центральный живописный плафон в церковном зале. От трёх плафонов остались лишь фрагменты.</p>
+                                <p><b>Архитектурные элементы:</b> Крыша была пробита, купола изрешечены пулями. Золоченая резьба сильно пострадала. На стенах появились нецензурные надписи на испанском языке и непристойные рисунки.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Выровненные фото на одной высоте -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                    <img src="war1.jpg" class="w-full h-96 object-cover rounded shadow-md border border-ochre/10">
+                    <img src="war2.jpg" class="w-full h-96 object-cover rounded shadow-md border border-ochre/10">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <div class="space-y-4">
+                        <img src="war3.jpg" class="w-full aspect-square object-cover rounded shadow-sm border border-ochre/10 m-0">
+                        <p class="text-sm text-center italic text-red-900">Дворец и цервовь в окупации</p>
+                    </div>
+                    <div class="space-y-4">
+                        <img src="war4.jpg" class="w-full aspect-square object-cover rounded shadow-sm border border-ochre/10 m-0">
+                        <p class="text-sm text-center italic text-red-900">Повреждения церкви снарядами</p>
+                    </div>
+                    <div class="space-y-4">
+                        <img src="war5.jpg" class="w-full aspect-square object-cover rounded shadow-sm border border-ochre/10 m-0">
+                        <p class="text-sm text-center italic text-red-900">Январь 1944: освобождение</p>
+                    </div>
+                </div>
+                
+                <img src="war6.jpg" class="w-full h-[500px] object-cover rounded shadow-2xl border border-ochre/10 m-0">
+
+                <div class="mt-12 text-center">
+                    <a href="https://mir24.tv/articles/16362927/cerkov-voskreseniya-hristova" target="_blank" class="bg-red-700 text-white px-12 py-5 rounded-sm serif-heading font-bold hover:bg-red-800 transition shadow-xl inline-block uppercase tracking-wider text-xl">Подробнее</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODERN HISTORY -->
+        <div id="part8" class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e10')">
+                <span class="text-ochre font-bold text-2xl serif-heading">1950 – 2010</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Период консервации</h3>
+                <p class="text-sm text-gray-600 mb-4">60 лет в состоянии консервации и защита фасада.</p>
+                <img src="1969.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                <p class="text-sm text-gray-600 mb-4">На изображении:Вид внутреннего убранства церкви в 1969 году</p>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e_facade')">
+                <span class="text-ochre font-bold text-2xl serif-heading">2010</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Реставрация фасада</h3>
+                <p class="text-sm text-gray-600 mb-4">Золочение куполов и восстановление декора.</p>
+                <img src="rest6.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e_start')">
+                <span class="text-ochre font-bold text-2xl serif-heading">2015</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Начало проекта</h3>
+                <p class="text-sm text-gray-600 mb-4">Старт масштабных работ при поддержке Газпром нефть.</p>
+                <img src="rest2.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e11')">
+                <span class="text-ochre font-bold text-2xl serif-heading">2015 – 2019</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Комплексная реставрация</h3>
+                <p class="text-sm text-gray-600 mb-4">Труд 350 специалистов Царскосельской янтарной мастерской.</p>
+                <img src="rest5.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <div class="timeline-item px-4">
+            <div class="timeline-content text-right" onclick="showEvent('e12')">
+                <span class="text-ochre font-bold text-2xl serif-heading">2015</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Находка 182 фрагментов</h3>
+                <p class="text-sm text-gray-600 mb-4">Обнаружение спрятанных исторических деталей.</p>
+                <img src="40.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+        <div id="part9" class="timeline-item px-4">
+            <div class="timeline-content text-left" onclick="showEvent('e13')">
+                <span class="text-ochre font-bold text-2xl serif-heading">12 апреля 2019</span>
+                <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Торжественное открытие</h3>
+                <p class="text-sm text-gray-600 mb-4">Возвращение шедевра миру.</p>
+                <img src="42.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="w-[46%] hidden md:block"></div>
+        </div>
+
+       <div class="timeline-item px-4">
+    <div class="timeline-content text-right" onclick="showEvent('e14')">
+        <span class="text-ochre font-bold text-2xl serif-heading">2019 – 2025</span>
+        <h3 class="text-xl serif-heading my-3 text-ochre-dark font-bold uppercase">Современное состояние</h3>
+        <p class="text-sm text-gray-600 mb-4">Действующий памятник и триумф реставрации.</p>
+        
+        <a href="https://drive.google.com/drive/folders/1P1Xlk3-gJt1QvLbHbxH5MBwTSv1yZZfp?usp=sharing" 
+           target="_blank" 
+           onclick="event.stopPropagation();"
+           class="inline-block mt-4 px-8 py-3 bg-ochre text-white font-bold rounded-sm hover:bg-ochre-dark transition-colors uppercase tracking-wider text-xs">
+            Галерея
+        </a>
+    </div>
+    <div class="timeline-dot"></div>
+    <div class="w-[46%] hidden md:block"></div>
+</div>
+
+    <!-- КВИЗ -->
+    <section id="quiz" class="py-24 px-6 bg-white/50 border-t border-gray-100">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="serif-heading text-5xl text-ochre text-center mb-16 font-bold uppercase tracking-widest">Проверьте знания</h2>
+            <div class="quiz-card" id="quiz-container">
+                <div id="question-box">
+                    <p class="text-2xl font-serif mb-10 text-gray-800 font-semibold" id="question-text">Загрузка...</p>
+                    <div id="options-box" class="space-y-4"></div>
+                </div>
+                <div id="result-box" class="hidden text-center py-10">
+                    <h3 class="text-4xl font-bold mb-6 serif-heading text-ochre" id="result-title"></h3>
+                    <p class="text-xl text-gray-600 mb-10" id="result-text"></p>
+                    <button onclick="resetQuiz()" class="bg-ochre text-white px-12 py-4 rounded-lg font-bold hover:bg-ochre-dark transition shadow-lg uppercase tracking-wider">Пройти еще раз</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white py-20 text-center border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="serif-heading text-2xl text-ochre mb-8 uppercase font-bold tracking-widest">Наследие</h2>
+            <p class="text-gray-600 italic">«История восстановления церкви из руин — это гимн безграничной преданности своему наследию и великой любви к Родине»</p>
+            <p class="text-gray-400 text-sm mt-10">© 2026 Проект по Истории Царского Села.</p>
+            <p class="text-gray-600 italic">Проект выполнен Егором Марахиным и Аленой Носковой</p>
+            
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <div id="modal-overlay" onclick="closeModal()">
+        <div class="modal-card relative" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <span id="m-period" class="text-ochre font-bold text-sm tracking-widest uppercase mb-2 block"></span>
+                <h2 id="m-title" class="serif-heading text-3xl text-ochre-dark font-bold leading-tight"></h2>
+            </div>
+            <div id="m-content" class="modal-content-inner prose prose-lg max-w-none text-gray-800"></div>
+            <div class="px-[60px] pb-12 text-center sm:text-left">
+                <a href="#" id="m-link" target="_blank" class="inline-block text-ochre font-bold hover:underline border border-ochre/40 px-8 py-3 uppercase text-sm">Источник</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const historicalData = {
+            e1: { 
+                period: "1745", 
+                title: "Закладка церкви", 
+                link: "https://pushkin.spb.ru/encycl/churches/tserkov-voskreseniya-hristova-v-ekaterininskom-dvortse.html",
+                content: `<p>В 1745 году императрица Елизавета Петровна инициировала создание домовой церкви при Екатерининском дворце в Царском Селе.</p>
+                <p>8 августа 1745 года состоялась официальная закладка церкви в присутствии:</p>
+                <ul>
+                    <li>Императрицы Елизаветы Петровны</li>
+                    <li>Великого князя Петра Фёдоровича (будущего Петра III)</li>
+                    <li>Великой княгини Екатерины Алексеевны (будущей Екатерины Великой)</li>
+                </ul>
+                <p>На медной доске, обнаруженной позже в алтаре, было задокументировано это событие.</p>` 
+            },
+            e2: {
+                period: "1746",
+                title: "Проект Саввы Чевакинского",
+                link: "https://ru.wikipedia.org/wiki/Церковь_Екатерининского_дворца",
+                content: `<p>Первоначальный проект был разработан архитектором Саввы Чевакинским. Однако вскоре руководство работами было передано Растрелли для придания храму более величественного и декоративного облика.</p>`
+            },
+            e3: { 
+                period: "1747 – 1756", 
+                title: "Строительство Растрелли", 
+                link: "https://gazprombonus.ru/news/16875-vozrozhdenie-hrama-v-lektorii-gazprom-rasskazali-o-vossozdanii-cerkvi-ekaterininskogo-dvorca-v-carskom-sele?utm_referrer=https:%2F%2Fyandex.ru%2F",
+                content: `<p>Растрелли был творцом стиля, названного елизаветинским барокко, отличавшегося:</p>
+                <ul>
+                    <li>Ярко выраженной декоративностью</li>
+                    <li>Обилием позолоты и резьбы</li>
+                    <li>Синтезом западноевропейского барокко с русскими традициями</li>
+                    <li>Созданием впечатления величия</li>
+                </ul>
+                <p>Растрелли переработал проект Чевакинского, придав храму свой архитектурный замысел.</p>
+                <h3>Строительство и мастера (1747–1756)</h3>
+                <p>Строительство продолжалось одиннадцать лет под руководством Растрелли. В этот период трудились специалисты как отечественные, так и приглашённые из-за границы.</p>
+                <p><b>Резчики по дереву:</b> создавали элементы барочной резьбы — гирляндированные колонны, резные фигуры ангелов и серафимов, архитектурные детали.</p>
+                <p><b>Живописцы:</b> работали над фресками, плафонами, писали иконы. В том числе: Гаспаре-Хартоломео Гроот, И. Вебер, Г. Пренер, Братья Мина Николаевич и Федор Николаевич Колокольниковы, Иван Петрович Аргунов, Д. Валериани.</p>
+                <p><b>Позолотчики:</b> наносили позолоту по традиционной технике XVIII века поверх слоя серебра.</p>
+                <p><b>Лепщики:</b> создавали элементы из папье-маше и гипса.</p>`
+            },
+            e4: { 
+                period: "1756", 
+                title: "Освящение храма", 
+                link: "https://drevo-info.ru/articles/13678219.html",
+                content: `<p>30 июля 1756 года церковь была торжественно освящена архиепископом Санкт-Петербургским и Шлиссельбургским Сильвестром в присутствии императрицы Елизаветы Петровны. Событие получило освещение в прессе того времени.</p>` 
+            },
+            e_decor: {
+                period: "1756-1820",
+                title: "АРХИТЕКТУРА И УБРАНСТВО",
+                link: "https://tzar.ru/objects/ekaterininsky/church",
+                content: `<h3>Архитектурные характеристики</h3>
+                            <p><b>План и размеры:</b> Церковь имела прямоугольный план с ризницей и алтарной абсидой. Размеры позволяли вместить достаточное количество молящихся, хотя была рассчитана прежде всего на членов императорской семьи.</p>
+                            <p><b>Купола:</b> Пять позолоченных куполов-главок венчали церковь, каждый украшен позолоченным крестом.</p>
+                            <p><b>Фасад:</b> Внешний облик гармонировал с архитектурой Екатерининского дворца, формируя единый архитектурный ансамбль.</p>
+                            <h3>Внутреннее убранство</h3>
+                            <p><b>Цветовое решение:</b> Стены церкви были окрашены в цвет берлинской лазури — интенсивный светящийся голубой оттенок.</p>
+                            <p><b>Живописные плафоны:</b> На потолке располагались три живописных произведения:</p>
+                            <ul>
+                                <li>1. Главный плафон: Вознесение Иисуса Христова, изображавшее Христа, апостолов и ангелов в облаках.</li>
+                                <li>2. Плафон на хорах: Святая София и её дочери Вера, Надежда, Любовь — символизирующий духовные добродетели.</li>
+                                <li>3. Алтарный плафон: Слава Святому Духу — символизирующий сошествие Святого Духа на апостолов.</li>
+                            </ul>
+                            <p><b>Иконостас:</b> Иконостас включал 49 икон и был украшен резными фигурами ангелов и серафимов. Гирляндированные позолоченные колонны обвивались резными элементами из листьев, цветов и фруктов. Позолоченные капители украшали головы колонн. В алтаре располагались резные сени.</p>
+                            <p><b>Иконы:</b> В церкви размещалось 114 икон XVIII века, каждая вставлена в позолоченную резную раму.</p>
+                            <p><b>Техника позолоты:</b> Мастера использовали традиционную технику: на деревянную основу наносился слой серебра, поверх которого наносилась позолота, придавая ей глубину и долговечность.</p>
+                            <h3>Функция храма</h3>
+                            <p>Церковь служила домовой церковью царствующей семьи. Здесь совершались: Таинства (крещения, венчания членов императорской семьи), Торжественные молебны в честь государственных событий, Отпевания членов императорской семьи, Регулярные богослужения по церковному календарю.</p>
+                            
+                            <div class="space-y-4 mt-6">
+                                <div>
+                                    <p class="mb-2">1) Цветовое решение церкви:</p>
+                                    <img src="31.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                </div>
+                                <div>
+                                    <p class="mb-2">2) Плафоны:</p>
+                                    <img src="32.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                </div>
+                                <div>
+                                    <p class="mb-2">3) Живопись:</p>
+                                    <img src="34.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                </div>
+                                <div>
+                                    <p class="mb-2">4) Колонны с растительным орнаментом:</p>
+                                    <img src="33.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                </div>
+                            </div>`
+            },
+            e5: { 
+                period: "1820", 
+                title: "Первый пожар", 
+                link: "http://pages-zg.ru/?p=4094",
+                content: `<p>12 мая 1820 года произошел пожар в Екатерининском дворце, охватившем и церковь. Масштаб разрушений:</p>
+                <ul>
+                    <li>Резьба обуглилась</li>
+                    <li>Позолота расплавилась</li>
+                    <li>Живопись разрушена</li>
+                    <li>Иконы повреждены</li>
+                    <li>Позолоченные колонны потеряли блеск</li>
+                </ul>
+                <p>По документам того времени, «большая часть интерьера была уничтожена».</p>` 
+            },
+            e6: { 
+                period: "1820 – 1822", 
+                title: "Реставрация Стасова", 
+                link: "https://ru.wikipedia.org/wiki/Стасов,_Василий_Петрович",
+                content: '<p>На восстановление церкви встал архитектор Василий Петрович Стасов (1769–1848), директор императорских дворцовых строений.</p>' +
+                        '<p><b>Методы восстановления:</b></p>' +
+                        '<ul>' +
+                            '<li>Утраченные деревянные детали заменены позолоченным папье-маше, позволившим быстро восстановить объём без визуальных потерь.</li>' +
+                            '<li>Главный плафон переписан художником Василием Кузьмичом Шебуевым (1777–1855). Плафон выполнен в стиле классицизма, создав слияние барочного интерьера XVIII века и живописи XIX века.</li>' +
+                            '<li>Позолота восстановлена по оригинальной технике поверх слоя серебра.</li>' +
+                        '</ul>' +
+                        '<h3>Повторное освящение (2 апреля 1822)</h3>' +
+                        '<p>2 апреля 1822 года церковь была заново освящена в присутствии императора Александра I.</p>' +
+                        '<div style="margin-top: 25px;">' +
+                            '<p style="font-style: italic; font-size: 0.9em; margin-bottom: 10px;">1) Плафон церкви работы В.К. Шебуева:</p>' +
+                            '<img src="17.jpg" style="display: block; width: 100%; height: auto; rounded; border: 1px solid #C68A3B; margin-bottom: 20px;">' +
+                            '<p style="font-style: italic; font-size: 0.9em; margin-bottom: 10px;">2) Пример золочения по серебру (заметно потемнение из-за окисления):</p>' +
+                            '<img src="21.jpg" style="display: block; width: 100%; height: auto; rounded; border: 1px solid #C68A3B;">' +
+                        '</div>'
+            },
+            e_stable1: {
+                period: "1822–1863",
+                title: "Период стабильности",
+                link: "https://tzar.ru/objects/ekaterininsky/church",
+                content: `<p>После восстановления церковь оставалась в стабильном состоянии 41 год. Богослужения совершались регулярно. При императорах Николае I (1825–1855) и Александре II (1855–1881) церковь служила центром религиозной жизни.</p><img src="N1A2.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">`
+            },
+            e7: { 
+                period: "1863", 
+                title: "Второй пожар", 
+                link: "https://tzar.ru/node/1538",
+                content: `<p>16 июня 1863 года огонь вновь охватил Екатерининский дворец и церковь. По местного преданию, императрица Александра Фёдоровна вышла навстречу огню с иконой Знамения. Пожар был локализован быстрее первого, однако нанёс значительные повреждения интерьеру.</p>` 
+            },
+            e8: { 
+                period: "1863 – 1864", 
+                title: "Реставрация Видова", 
+                link: "https://nataturka.ru/muzey-usadba/pushkin-tserkov-voskreseniya-ekaterininskogo-dvortsa.html",
+                content: `<p>Восстановлением руководил архитектор Александр Фёдорович Видов (1823–1899), специалист по восстановлению исторических памятников.</p>
+                <p><b>Основные работы:</b></p>
+                <ul>
+                    <li>Восстановлены повреждённые огнём деревянные, резные и окрашенные элементы</li>
+                    <li>Алтарный плафон «Слава Святому Духу» воссоздан художником А.Ф. Беллоли</li>
+                    <li>Плафон на хорах «Святая София и её дочери Вера, Надежда, Любовь» ранее Г. Гиппиуса (1823)</li>
+                    <li>Позолота восстановлена по оригинальной технологии XVIII века</li>
+                    <li>Конструкции, повреждённые огнём, усилены и восстановлены</li>
+                </ul>
+                <p>Церковь освящена 27 октября 1864 года.</p><img src="24.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">` 
+            },
+            e_stable2: {
+                period: "1864–1917",
+                title: "Период стабильности",
+                link: "https://tzar.ru/objects/ekaterininsky/church",
+                content: `<p>После завершения реставрации Видовым церковь оставалась в стабильном состоянии 77 лет. Богослужения совершались регулярно, тысячи паломников посещали храм. Этот период характеризовался полным благополучием памятника — отсутствием войн, пожаров и значительных разрушений.</p>
+                            
+                            <div class="space-y-4 mt-6">
+                                <div>
+                                    <p class="mb-2">1) Изображение 1903 года:</p>
+                                    <img src="37.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                </div>
+                                <div>
+                                    <p class="mb-2">2) Убранство церкви в 1908 году:</p>
+                                    <img src="38.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                </div>
+                                <div>
+                                    <p class="mb-2">3) Церковь снаружи. Изображение 1910 года:</p>
+                                    <img src="36.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                </div>
+                            </div>`
+            },
+            e9: { 
+                period: "1917 – 1941", 
+                title: "Музейный статус", 
+                link: "https://drevo-info.ru/articles/13678219.html",
+                content: `<h3>Сохранение после революции</h3>
+                <p>После революции 1917 года церковь была сохранена. Царское Село превращено в музей — «Музей дворца Революции» (позже ГМЗ «Царское Село»). Церковь включена в музейную коллекцию как памятник архитектуры. Богослужения прекратились.</p>
+                <h3>Консервация (1920–1941)</h3>
+                <p>На протяжении двух десятилетий советской власти церковь охранялась как памятник архитектуры и живописи. Сотрудники музея проводили профилактические работы и охраняли памятник от вандализма. Масштабные реставрационные работы были невозможны в условиях послереволюционной разрухи, однако памятник сохранялся в относительно хорошем состоянии.</p>` 
+            },
+            e_war: {
+                period: "1941–1944",
+                title: "ПОХИЩЕННОЕ НАСЛЕДИЕ",
+                link: "https://ru.rbth.com/read/906-petersburg-palaces-wwii-nazis",
+                content: `<p><b>Живописное убранство:</b> Из 114 икон XVIII века сохранилось только три — «Архангел Гавриил» и «Архангел Михаил» работы Мины Колокольникова на дьяконских дверях иконостаса, а также ещё один образ. Остальные 97 икон были похищены оккупантами</p>
+                <p><b>Плафоны:</b> В 1942 году в церковный флигель попала бомба, которая полностью уничтожила центральный живописный плафон в церковном зале. От трёх плафонов остались лишь фрагменты.</p>
+                <p><b>Архитектурные элементы:</b> Крыша была пробита, купола изрешечены пулями. Золоченая резьба сильно пострадала. На стенах появились нецензурные надписи на испанском языке и непристойные рисунки. После освобождения 24 января 1944 года состояние храма оценивалось как руинированное (сохранность менее 60%).</p>`
+            },
+            e10: { 
+                period: "1950 – 2010", 
+                title: "Период консервации", 
+                link: "https://tzar.ru/science/curatorsarchive/lvb-rasp-recreation",
+                content: `<h3>Первоочередные работы (1950-е)</h3>
+                <p>Начиная с 1950-х годов проведены первоочередные консервационные работы. Целью была консервация руин — предотвращение дальнейшего разрушения. Церковь приобрела экспозиционный вид, позволяющий посетителям понять, что здесь было.</p>
+                <h3>Период консервации (1950–2010)</h3>
+                <p>На протяжении 60 лет церковь оставалась в состоянии консервации. Посетители могли видеть интерьер только с хоров. За этот период влага, холод и промерзание наносили повреждения оставшимся элементам. Полноценная реставрация не проводилась с 1863 года.</p>
+                <h3>Реставрация фасада (2010)</h3>
+                <p>В 2010 году проведена реставрация архитектурно-декоративного убранства фасада: - Золочение куполов - Восстановление образов архангелов Михаила и Гавриила. Это были поверхностные работы, не затрагивающие интерьер.</p>` 
+            },
+            e_facade: {
+                period: "2010",
+                title: "Реставрация фасада",
+                link: "https://www.encspb.ru/object/2855743331?dv=1000000000&lc=ru",
+                content: `<p>В 2010 году к 300-летию Царского Села была проведена реставрация фасада, включая золочение куполов.</p>`
+            },
+            e_start: {
+                period: "2015",
+                title: "Начало проекта",
+                link: "https://pushkin.spb.ru/news/pushkin-news/zerkov-ekaterininskogo-dvorza-restavriruyut.html",
+                content: `<p>В 2015 году начинается масштабная комплексная реставрация Церкви Воскресения Христова. Финансирование в размере свыше 1 миллиарда рублей выделено как благотворительное пожертвование компанией Газпром нефть.</p>`
+            },
+            e11: { 
+                period: "2015 – 2019", 
+                title: "Комплексная реставрация", 
+                link: "https://tzar.ru/news/1555074795",
+                content: `<h3>Начало проекта</h3>
+                            <p>В 2015 году начинается масштабная комплексная реставрация Церкви Воскресения Христова. Финансирование в размере свыше 1 миллиарда рублей выделено как благотворительное пожертвование компанией Газпром нефть.</p>
+                            <h3>Исполнитель и персонал</h3>
+                            <p>Работы возложены на Царскосельскую янтарную мастерскую — специалистов, ранее успешно восстанавливавших Янтарную комнату и другие дворцовые интерьеры. Реставрация продолжалась четыре года (2015–2019). Более 350 специалистов различных ремёсел участвовало в работах:</p>
+                            <ul>
+                                <li><b>Позолотчики:</b> восстанавливали позолоту по традиционной технике XVIII века</li>
+                                <li><b>Резчики по дереву:</b> восстанавливали резные детали, колонны, фигуры ангелов</li>
+                                <li><b>Живописцы:</b> писали новые иконы, восстанавливали плафоны</li>
+                                <li><b>Лепщики:</b> создавали утраченные элементы лепного декора</li>
+                                <li><b>Специалисты консервации:</b> укрепляли оригинальный холст и исторические красочные слои</li>
+                                <li><b>Архитекторы и реставраторы:</b> координировали работы</li>
+                            </ul>
+                            <h3>Направления реставрационных работ</h3>
+                            <p><b>Деревянные стеновые панели:</b> Панели, окрашенные в цвет берлинской лазури, отреставрированы с восполнением утрат материала.</p>
+                            <p><b>Консервация живописи:</b> Оригинальный холст и исторические красочные слои плафона в алтарной части укреплены специальными растворами.</p>
+                            <p><b>Восстановление позолоты:</b> на основе исторических образцов восстановлена традиционная техника позолоты XVIII века поверх слоя серебра.</p>
+                            <p><b>Иконы и живопись:</b> Написано 65 новых икон в традиции XVIII века на основе сохранившихся оригинальных образцов и архивных описаний. Живописный плафон восстановлен в соответствии с оригинальным замыслом.</p>
+                            <p><b>Декоративные элементы:</b> Восстановлены все декоративные элементы: резная позолоченная резьба, гирляндированные колонны, резные ангелы и серафимы, резные сени, позолоченные капители.</p>
+                            <h3>Принципы реставрации</h3>
+                            <p>Все работы проводились согласно Венецианской хартии 1964 года — международному документу по консервации памятников культуры. Это означало: Сохранение подлинных исторических элементов, Отличие восстановленных частей от оригинальных, Возможность будущим поколениям понять оригинальное от восстановленного. Недостающий декор не золотили полностью, а лишь тонировали, чтобы любой смог отличить историческое от восстановленного.</p>
+                            <div class="mt-6 space-y-4">
+                                <img src="45.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                <img src="46.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                <img src="47.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                                <img src="48.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                            </div>` 
+            },
+            e12: { 
+                period: "2015", 
+                title: "Находка 182 фрагментов", 
+                link: "https://vk.com/@pushkinliveru-cerkov-voskreseniya-hristova-restavraciya-zavershena",
+                content: `<p>Во время реставрационных работ в алтарной части один из сотрудников уронил телефон за деревянные перекрытия. За обшивкой иконостаса обнаружены аккуратно сложенные 182 фрагмента исторических элементов. Предположительно, эти фрагменты были спрятаны в 1940-х годах служителями церкви.</p>` 
+            },
+            e13: { 
+                period: "2019", 
+                title: "Торжественное открытие", 
+                link: "https://tzarskoeselo.ru/news/dvorczovaya-czerkov-otkryta",
+                content: `<p>12 апреля 2019 года. Восстановленный шедевр вновь доступен миру. Событие ознаменовало завершение основного этапа послевоенного воссоздания Екатерининского дворца.</p>
+                <div class="mt-6">
+                                <img src="50.jpg" class="w-full h-auto rounded shadow-md border border-ochre/10">
+                            </div>`
+            },
+            e14: {
+                period: "2019–2025",
+                title: "СОВРЕМЕННОЕ СОСТОЯНИЕ",
+                link: "https://tzar.ru/objects/ekaterininsky/church",
+                content: `<p>В настоящее время восстановленная Церковь Воскресения Христова включает:</p>
+                <p><b>Внутреннее убранство:</b></p>
+                <ul>
+                    <li>Синие стены цвета берлинской лазури, соответствующие оригинальному XVIII веку</li>
+                    <li>Позолоченный иконостас с резными фигурами ангелов и серафимов, позолоченные колонны</li>
+                    <li>Восстановленные живописные плафоны (Вознесение, Святая София, Слава Святому Духу)</li>
+                    <li>65 новых икон, написанные в традиции XVIII века, соседствующие с тремя сохранившимися подлинными образами XVIII века</li>
+                    <li>Восстановленная резная позолоченная резьба</li>
+                </ul>`
+            }
+        };
+
+        const quizData = [
+            { q: "Кто был основным архитектором барочного храма?", a: ["Василий Стасов", "Франческо Растрелли", "Савва Чевакинский", "Александр Видов"], correct: 1 },
+            { q: "В какой цвет были традиционно окрашены стены интерьера?", a: ["Малахитовый", "Берлинская лазурь", "Небесно-голубой", "Золотистая охра"], correct: 1 },
+            { q: "Что размещали оккупанты в храме в 1941-44 гг?", a: ["Склад зерна", "Гараж и ремонтную мастерскую", "Штаб командования", "Полевой госпиталь"], correct: 1 },
+            { q: "Сколько фрагментов исторической резьбы нашли в 2015 году за иконостасом?", a: ["49", "114", "182", "350"], correct: 2 }
+        ];
+
+        let curQ = 0, score = 0;
+        function initQuiz() {
+            const q = quizData[curQ];
+            document.getElementById('question-text').innerText = `${curQ + 1}. ${q.q}`;
+            const box = document.getElementById('options-box');
+            box.innerHTML = '';
+            q.a.forEach((opt, i) => {
+                const b = document.createElement('button');
+                b.className = 'option-btn';
+                b.innerText = opt;
+                b.onclick = () => {
+                    const btns = document.querySelectorAll('.option-btn');
+                    if (i === q.correct) { b.classList.add('correct'); score++; }
+                    else { b.classList.add('incorrect'); btns[q.correct].classList.add('correct'); }
+                    btns.forEach(btn => btn.disabled = true);
+                    setTimeout(() => {
+                        curQ++;
+                        if (curQ < quizData.length) initQuiz();
+                        else {
+                            document.getElementById('question-box').classList.add('hidden');
+                            document.getElementById('result-box').classList.remove('hidden');
+                            document.getElementById('result-title').innerText = `Ваш результат: ${score} из ${quizData.length}`;
+                            document.getElementById('result-text').innerText = score >= 3 ? "Превосходно! Вы настоящий знаток истории храма." : "Неплохо, но попробуйте изучить ленту времени еще раз!";
+                        }
+                    }, 1500);
+                };
+                box.appendChild(b);
+            });
+        }
+
+        function resetQuiz() { curQ = 0; score = 0; document.getElementById('question-box').classList.remove('hidden'); document.getElementById('result-box').classList.add('hidden'); initQuiz(); }
+
+        function showEvent(id) {
+            const d = historicalData[id];
+            if (!d) return;
+            document.getElementById('m-period').innerText = d.period;
+            document.getElementById('m-title').innerText = d.title;
+            document.getElementById('m-content').innerHTML = d.content;
+            document.getElementById('m-link').href = d.link;
+            document.getElementById('modal-overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; document.body.style.overflow = 'auto'; }
+        window.onload = initQuiz;
+
+        window.addEventListener('scroll', () => {
+            const sections = [
+                { id: 'hero', link: 'Начало' },
+                { id: 'part1', link: '1745–1756' },
+                { id: 'part3', link: '1820–1864' },
+                { id: 'part6', link: '1941–1944' },
+                { id: 'part8', link: 'Реставрация' },
+                { id: 'quiz', link: 'Квиз' }
+            ];
+            
+            let current = '';
+            const scrollPos = window.scrollY + 180;
+
+            sections.forEach(section => {
+                const el = document.getElementById(section.id);
+                if (el && scrollPos >= el.offsetTop) {
+                    current = section.id;
+                }
+            });
+
+            if (window.scrollY < 200) current = 'hero';
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
